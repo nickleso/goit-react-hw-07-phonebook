@@ -1,19 +1,19 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { getContacts, addContact } from '../redux';
-import { nanoid } from 'nanoid';
-
+import { getContacts } from '../redux';
+import { addContact } from '../redux/operations';
+// import { nanoid } from 'nanoid';
 import css from './App.module.css';
 
 export const ContactForm = () => {
   const dispatch = useDispatch();
-  const { contactList } = useSelector(getContacts);
+  const contactList = useSelector(getContacts);
 
   function onFormSubmit(event) {
     event.preventDefault();
     const form = event.target;
     const name = form.elements.name.value;
     const normalizedName = name.toLowerCase();
-    const number = form.elements.number.value;
+    const phone = form.elements.phone.value;
 
     const checkByName = contactList.find(
       contact => contact.name.toLowerCase() === normalizedName
@@ -25,9 +25,9 @@ export const ContactForm = () => {
     }
 
     const newContact = {
-      id: nanoid(10),
+      // id: nanoid(10),
       name,
-      number,
+      phone,
     };
 
     dispatch(addContact(newContact));
@@ -47,10 +47,10 @@ export const ContactForm = () => {
         />
       </label>
       <label className={css.form__label}>
-        Number
+        Phone
         <input
           type="tel"
-          name="number"
+          name="phone"
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           required
