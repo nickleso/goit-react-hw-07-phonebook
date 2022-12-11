@@ -8,8 +8,6 @@ export const ContactList = () => {
   const dispatch = useDispatch();
   const contactList = useSelector(getContacts);
   const filter = useSelector(getFilter);
-  // const isLoading = useSelector(getIsLoading);
-  // const error = useSelector(getError);
 
   useEffect(() => {
     dispatch(fetchContacts());
